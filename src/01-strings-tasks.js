@@ -228,18 +228,20 @@ function getRectangleString(width, height) {
  */
 function encodeToRot13(str) {
   return str.replace(/[a-zA-Z]/g, (char) => {
+    let a;
     if (char.charCodeAt(0) > 64 && char.charCodeAt(0) < 78) {
-      return String.fromCodePoint(char.charCodeAt(0) + 13);
+      a = String.fromCodePoint(char.charCodeAt(0) + 13);
     }
     if (char.charCodeAt(0) > 77 && char.charCodeAt(0) < 91) {
-      return String.fromCodePoint(char.charCodeAt(0) - 13);
+      a = String.fromCodePoint(char.charCodeAt(0) - 13);
     }
     if (char.charCodeAt(0) > 96 && char.charCodeAt(0) < 110) {
-      return String.fromCodePoint(char.charCodeAt(0) + 13);
+      a = String.fromCodePoint(char.charCodeAt(0) + 13);
     }
     if (char.charCodeAt(0) > 109 && char.charCodeAt(0) < 123) {
-      return String.fromCodePoint(char.charCodeAt(0) - 13);
+      a = String.fromCodePoint(char.charCodeAt(0) - 13);
     }
+    return a;
   });
 }
 
