@@ -523,8 +523,21 @@ function distinct(arr) {
  *    "Poland" => ["Lodz"]
  *   }
  */
-function group(/* array, keySelector, valueSelector */) {
-  throw new Error('Not implemented');
+function group(array, keySelector, valueSelector) {
+  const res = new Map();
+  return array.reduce((acc, item) => {
+    const key = keySelector(item);
+    const value = valueSelector(item);
+    const valueArr = [value];
+    if (!res.has(key)) {
+      res.set(key, valueArr);
+    } else {
+      const prev = res.get(key);
+      prev.push(value);
+      res.set(key, prev);
+    }
+    return acc;
+  }, res);
 }
 
 
@@ -541,8 +554,8 @@ function group(/* array, keySelector, valueSelector */) {
  *   [[1, 2], [3, 4], [5, 6]], (x) => x     =>   [ 1, 2, 3, 4, 5, 6 ]
  *   ['one','two','three'], x=>x.split('')  =>   ['o','n','e','t','w','o','t','h','r','e','e']
  */
-function selectMany(/* arr, childrenSelector */) {
-  throw new Error('Not implemented');
+function selectMany(arr, childrenSelector) {
+  return arr.reduce((acc, item) => acc.concat(childrenSelector(item)), []);
 }
 
 
@@ -558,8 +571,17 @@ function selectMany(/* arr, childrenSelector */) {
  *   ['one','two','three'], [2]       => 'three'  (arr[2])
  *   [[[ 1, 2, 3]]], [ 0, 0, 1 ]      => 2        (arr[0][0][1])
  */
-function getElementByIndexes(/* arr, indexes */) {
-  throw new Error('Not implemented');
+function getElementByIndexes(arr, indexes) {
+  let newArr = arr.slice();
+  const res = indexes.reduce((acc, item, index) => {
+    if (index !== indexes.length - 1) {
+      newArr = newArr[item];
+    } else {
+      return newArr[item];
+    }
+    return null;
+  }, 0);
+  return res;
 }
 
 
@@ -581,8 +603,19 @@ function getElementByIndexes(/* arr, indexes */) {
  *   [ 1, 2, 3, 4, 5, 6, 7, 8 ]   =>  [ 5, 6, 7, 8, 1, 2, 3, 4 ]
  *
  */
-function swapHeadAndTail(/* arr */) {
-  throw new Error('Not implemented');
+function swapHeadAndTail(arr) {
+  let newArr = [];
+  if (arr.length % 2 === 0) {
+    const a = arr.slice(arr.length / 2, arr.length);
+    const b = arr.slice(0, arr.length / 2);
+    newArr = a.concat(b);
+  } else {
+    const a = arr.slice(arr.length / 2 + 0.5, arr.length);
+    const b = arr.length / 2 + 0.5;
+    const c = arr.slice(0, arr.length / 2 - 0.5);
+    newArr = a.concat(b).concat(c);
+  }
+  return newArr;
 }
 
 
