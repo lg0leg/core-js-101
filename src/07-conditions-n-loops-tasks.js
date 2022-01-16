@@ -57,11 +57,7 @@ function getFizzBuzz(num) {
  *   10 => 3628800
  */
 function getFactorial(n) {
-  let a = 1;
-  while (n) {
-    a *= n - 1;
-  }
-  return a;
+  return (n !== 1) ? n * getFactorial(n - 1) : 1;
 }
 
 
@@ -183,7 +179,7 @@ function isInsideCircle(circle, point) {
   const r = circle.radius;
   const x0 = point.x;
   const y0 = point.y;
-  return (x1 - x0) ** 2 + (y1 - y0) ** 2 <= r ** 2;
+  return (x1 - x0) ** 2 + (y1 - y0) ** 2 < r ** 2;
 }
 
 
@@ -247,7 +243,7 @@ function getIntervalString(a, b, isStartIncluded, isEndIncluded) {
   } else {
     arr.push(')');
   }
-  return arr.join();
+  return arr.join('');
 }
 
 
@@ -285,12 +281,12 @@ function reverseString(str) {
  *   34143 => 34143
  */
 function reverseInteger(num) {
-  const str = +num;
+  const str = num.toString();
   let a = '';
   for (let i = str.length - 1; i >= 0; i -= 1) {
     a += str[i];
   }
-  return a;
+  return Number(a);
 }
 
 
